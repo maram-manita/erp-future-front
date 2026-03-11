@@ -2,6 +2,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import AppShell from "@/components/layout/AppShell";
 import Dashboard from "@/pages/Dashboard";
 import Projects from "@/pages/Projects";
+import ProjectDetail, { getProjectName } from "@/pages/Projects/ProjectDetail";
 import Jobs from "@/pages/Jobs";
 import Contracts from "@/pages/Commercial/Contracts";
 import PurchaseOrders from "@/pages/Commercial/PurchaseOrders";
@@ -37,13 +38,21 @@ export const router = createBrowserRouter([
           },
           {
             path: "projects",
-            element: <Projects />,
+            element: <Outlet />,
             handle: { crumb: "Projects" },
-          },
-          {
-            path: "projects/:id",
-            element: <Projects />,
-            handle: { crumb: "Project Detail" },
+            children: [
+              {
+                index: true,
+                element: <Projects />,
+              },
+              {
+                path: ":id",
+                element: <ProjectDetail />,
+                handle: {
+                  crumb: ({ params }) => getProjectName(params.id) || "Project Detail",
+                },
+              },
+            ],
           },
           { path: "jobs", element: <Jobs />, handle: { crumb: "Jobs" } },
           {
