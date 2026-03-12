@@ -47,11 +47,11 @@ export default function Login() {
               w="40px"
               h="40px"
               borderRadius="xl"
-              bg="orange.500"
+              bg="brand.500"
               color="white"
               align="center"
               justify="center"
-              boxShadow="0 14px 30px rgba(237, 137, 54, 0.22)"
+              boxShadow="0 14px 30px rgba(19, 185, 167, 0.22)"
             >
               <ShieldCheck size={18} strokeWidth={2.4} />
             </Flex>
@@ -173,7 +173,7 @@ export default function Login() {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(event) => setRememberMe(event.target.checked)}
-                  accentColor="#ED8936"
+                  accentColor="#13b9a7"
                   w="16px"
                   h="16px"
                   flexShrink={0}
@@ -186,7 +186,7 @@ export default function Login() {
               <Button
                 type="submit"
                 size="lg"
-                colorPalette="orange"
+                colorPalette="brand"
                 borderRadius="xl"
                 fontWeight="700"
                 gap={2}

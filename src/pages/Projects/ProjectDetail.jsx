@@ -27,7 +27,7 @@ import {
 
 const PROJECT_STATUS = {
   active: { label: "Active", colorPalette: "green" },
-  on_hold: { label: "On Hold", colorPalette: "brand" },
+  on_hold: { label: "On Hold", colorPalette: "orange" },
   completed: { label: "Completed", colorPalette: "blue" },
   cancelled: { label: "Cancelled", colorPalette: "red" },
   draft: { label: "Draft", colorPalette: "gray" },
@@ -36,7 +36,7 @@ const PROJECT_STATUS = {
 const CONTRACT_STATUS = {
   draft: { label: "Draft", colorPalette: "gray" },
   active: { label: "Active", colorPalette: "green" },
-  suspended: { label: "Suspended", colorPalette: "brand" },
+  suspended: { label: "Suspended", colorPalette: "orange" },
   completed: { label: "Completed", colorPalette: "blue" },
   terminated: { label: "Terminated", colorPalette: "red" },
 };

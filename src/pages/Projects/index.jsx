@@ -16,7 +16,7 @@ import { Plus, Search, FolderOpen } from 'lucide-react'
 
 const STATUS_CONFIG = {
   active: { label: 'Active', colorPalette: 'green' },
-  on_hold: { label: 'On Hold', colorPalette: 'brand' },
+  on_hold: { label: 'On Hold', colorPalette: 'orange' },
   completed: { label: 'Completed', colorPalette: 'blue' },
   cancelled: { label: 'Cancelled', colorPalette: 'red' },
   draft: { label: 'Draft', colorPalette: 'gray' },
