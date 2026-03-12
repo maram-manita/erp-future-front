@@ -281,10 +281,12 @@ export default function Projects() {
           </Badge>
         </Flex>
         <Button
-          colorPalette="orange"
+          variant="solid"
+          colorPalette="brand"
           size="sm"
           fontWeight="600"
           fontSize="13px"
+          borderRadius="md"
           gap="6px"
         >
           <Plus size={14} strokeWidth={2.5} />
@@ -309,7 +311,7 @@ export default function Projects() {
                 key={f.value}
                 size="xs"
                 variant={isActive ? 'subtle' : 'ghost'}
-                colorPalette={isActive ? 'orange' : 'gray'}
+                colorPalette={isActive ? 'brand' : 'gray'}
                 borderRadius="full"
                 fontWeight={isActive ? '600' : '500'}
                 fontSize="12.5px"
@@ -384,7 +386,7 @@ export default function Projects() {
                 </EmptyState.Description>
               </VStack>
               {!search && statusFilter === 'all' && (
-                <Button colorPalette="orange" size="sm" mt="2" gap="6px">
+                <Button variant="solid" colorPalette="brand" size="sm" mt="2" borderRadius="md" gap="6px">
                   <Plus size={14} strokeWidth={2.5} />
                   New Project
                 </Button>
