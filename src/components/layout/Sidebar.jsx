@@ -139,7 +139,7 @@ export default function Sidebar() {
           <Box
             w="28px"
             h="28px"
-            bg="orange.500"
+            bg="brand.500"
             borderRadius="7px"
             flexShrink={0}
           />
@@ -170,7 +170,7 @@ export default function Sidebar() {
         <Button
           width="full"
           size="sm"
-          colorPalette="orange"
+          colorPalette="brand"
           variant="solid"
           borderRadius="md"
           fontWeight="600"
@@ -222,8 +222,8 @@ export default function Sidebar() {
               <Flex
                 w="30px"
                 h="30px"
-                bg="orange.50"
-                color="orange.500"
+                bg="brand.50"
+                color="brand.500"
                 borderRadius="full"
                 flexShrink={0}
                 align="center"
@@ -231,7 +231,7 @@ export default function Sidebar() {
                 fontSize="11px"
                 fontWeight="700"
                 border="1px solid"
-                borderColor="orange.100"
+                borderColor="brand.100"
               >
                 JD
               </Flex>

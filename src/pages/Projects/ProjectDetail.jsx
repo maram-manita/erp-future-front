@@ -27,7 +27,7 @@ import {
 
 const PROJECT_STATUS = {
   active: { label: "Active", colorPalette: "green" },
-  on_hold: { label: "On Hold", colorPalette: "orange" },
+  on_hold: { label: "On Hold", colorPalette: "brand" },
   completed: { label: "Completed", colorPalette: "blue" },
   cancelled: { label: "Cancelled", colorPalette: "red" },
   draft: { label: "Draft", colorPalette: "gray" },
@@ -36,7 +36,7 @@ const PROJECT_STATUS = {
 const CONTRACT_STATUS = {
   draft: { label: "Draft", colorPalette: "gray" },
   active: { label: "Active", colorPalette: "green" },
-  suspended: { label: "Suspended", colorPalette: "orange" },
+  suspended: { label: "Suspended", colorPalette: "brand" },
   completed: { label: "Completed", colorPalette: "blue" },
   terminated: { label: "Terminated", colorPalette: "red" },
 };
@@ -898,7 +898,7 @@ export default function ProjectDetail() {
           <Text color="gray.500" fontSize="sm">
             The project you are looking for does not exist.
           </Text>
-          <Button asChild mt={2} colorPalette="orange" size="sm">
+          <Button asChild mt={2} colorPalette="brand" size="sm">
             <RouterLink to="/projects">Back to Projects</RouterLink>
           </Button>
         </VStack>
@@ -1033,7 +1033,7 @@ export default function ProjectDetail() {
           <Button
             size="xs"
             variant="ghost"
-            colorPalette="orange"
+            colorPalette="brand"
             gap="4px"
             fontSize="12.5px"
             fontWeight="600"
@@ -1074,7 +1074,7 @@ export default function ProjectDetail() {
                     project.
                   </EmptyState.Description>
                 </VStack>
-                <Button colorPalette="orange" size="sm" mt="2" gap="6px">
+                <Button colorPalette="brand" size="sm" mt="2" gap="6px">
                   <Plus size={14} strokeWidth={2.5} />
                   Add Contract
                 </Button>

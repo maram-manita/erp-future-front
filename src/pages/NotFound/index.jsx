@@ -14,7 +14,7 @@ export default function NotFound() {
         <Text color="gray.500">
           The page you are looking for does not exist.
         </Text>
-        <Button asChild mt={2} colorPalette="orange">
+        <Button asChild mt={2} colorPalette="brand">
           <RouterLink to="/">Go to Dashboard</RouterLink>
         </Button>
       </VStack>

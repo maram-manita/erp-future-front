@@ -16,7 +16,7 @@ import { Plus, Search, FolderOpen } from 'lucide-react'
 
 const STATUS_CONFIG = {
   active: { label: 'Active', colorPalette: 'green' },
-  on_hold: { label: 'On Hold', colorPalette: 'orange' },
+  on_hold: { label: 'On Hold', colorPalette: 'brand' },
   completed: { label: 'Completed', colorPalette: 'blue' },
   cancelled: { label: 'Cancelled', colorPalette: 'red' },
   draft: { label: 'Draft', colorPalette: 'gray' },
@@ -229,7 +229,7 @@ export default function Projects() {
           </Badge>
         </Flex>
         <Button
-          colorPalette="orange"
+          colorPalette="brand"
           size="sm"
           fontWeight="600"
           fontSize="13px"
@@ -256,7 +256,7 @@ export default function Projects() {
                 key={f.value}
                 size="xs"
                 variant={isActive ? 'subtle' : 'ghost'}
-                colorPalette={isActive ? 'orange' : 'gray'}
+                colorPalette={isActive ? 'brand' : 'gray'}
                 borderRadius="full"
                 fontWeight={isActive ? '600' : '500'}
                 fontSize="12.5px"
@@ -344,7 +344,7 @@ export default function Projects() {
                   key={project.id}
                   cursor="pointer"
                   onClick={() => navigate(`/projects/${project.id}`)}
-                  _hover={{ bg: 'orange.50/40' }}
+                  _hover={{ bg: 'brand.50/40' }}
                 >
                   <Table.Cell>
                     <Text
@@ -415,7 +415,7 @@ export default function Projects() {
                 </EmptyState.Description>
               </VStack>
               {!search && statusFilter === 'all' && (
-                <Button colorPalette="orange" size="sm" mt="2" gap="6px">
+                <Button colorPalette="brand" size="sm" mt="2" gap="6px">
                   <Plus size={14} strokeWidth={2.5} />
                   New Project
                 </Button>
