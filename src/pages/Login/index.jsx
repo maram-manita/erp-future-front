@@ -23,38 +23,12 @@ export default function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [rememberMe, setRememberMe] = useState(true)
+  const [rememberMe, setRememberMe] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState('')
-
-  const clearError = () => {
-    if (error) {
-      setError('')
-    }
-  }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
-    const trimmedEmail = email.trim()
-    const trimmedPassword = password.trim()
-
-    if (!trimmedEmail && !trimmedPassword) {
-      setError('Enter your work email and password to continue.')
-      return
-    }
-
-    if (!trimmedEmail.includes('@')) {
-      setError('Use the email address your company gave you so we can place you in the right workspace.')
-      return
-    }
-
-    if (!trimmedPassword) {
-      setError('Enter your password to continue.')
-      return
-    }
-
-    navigate('/', { replace: true, state: { rememberMe } })
+    navigate('/', { replace: true })
   }
 
   return (
@@ -132,10 +106,7 @@ export default function Login() {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(event) => {
-                      clearError()
-                      setEmail(event.target.value)
-                    }}
+                    onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@company.com"
                     size="lg"
                     pl="42px"
@@ -185,10 +156,7 @@ export default function Login() {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     value={password}
-                    onChange={(event) => {
-                      clearError()
-                      setPassword(event.target.value)
-                    }}
+                    onChange={(event) => setPassword(event.target.value)}
                     placeholder="Enter your password"
                     size="lg"
                     pl="42px"
@@ -214,21 +182,6 @@ export default function Login() {
                   Keep me signed in
                 </Text>
               </Box>
-
-              {error ? (
-                <Box
-                  bg="red.50"
-                  borderWidth="1px"
-                  borderColor="red.100"
-                  color="red.600"
-                  borderRadius="xl"
-                  px={4}
-                  py={3}
-                  fontSize="sm"
-                >
-                  {error}
-                </Box>
-              ) : null}
 
               <Button
                 type="submit"

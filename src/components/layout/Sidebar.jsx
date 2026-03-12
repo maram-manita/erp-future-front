@@ -66,11 +66,11 @@ const NAV_GROUPS = [
 ]
 
 function NavItem({ label, icon, path, exact }) {
+  const Icon = icon
   const { pathname } = useLocation()
   const isActive = exact
     ? pathname === path
     : pathname === path || pathname.startsWith(path + '/')
-  const iconNode = icon({ size: 15, strokeWidth: isActive ? 2.5 : 1.75 })
 
   return (
     <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
@@ -87,7 +87,7 @@ function NavItem({ label, icon, path, exact }) {
         cursor="pointer"
       >
         <Box flexShrink={0} display="flex" alignItems="center">
-          {iconNode}
+          <Icon size={15} strokeWidth={isActive ? 2.5 : 1.75} />
         </Box>
         <Text
           fontSize="13.5px"
