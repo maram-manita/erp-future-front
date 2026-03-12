@@ -11,6 +11,7 @@ import Clients from "@/pages/Directory/Clients";
 import Suppliers from "@/pages/Directory/Suppliers";
 import Documents from "@/pages/Documents";
 import Admin from "@/pages/Admin";
+import Login from "@/pages/Login";
 import NotFound from "@/pages/NotFound";
 
 /**
@@ -22,6 +23,10 @@ import NotFound from "@/pages/NotFound";
  * automatically.
  */
 export const router = createBrowserRouter([
+  {
+    path: "/login",
+    element: <Login />,
+  },
   {
     path: "/",
     element: <AppShell />,
