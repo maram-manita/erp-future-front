@@ -7,7 +7,7 @@ import {
   Menu,
   Portal,
 } from '@chakra-ui/react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard,
   FolderOpen,
@@ -65,11 +65,12 @@ const NAV_GROUPS = [
   },
 ]
 
-function NavItem({ label, icon: Icon, path, exact }) {
+function NavItem({ label, icon, path, exact }) {
   const { pathname } = useLocation()
   const isActive = exact
     ? pathname === path
     : pathname === path || pathname.startsWith(path + '/')
+  const iconNode = icon({ size: 15, strokeWidth: isActive ? 2.5 : 1.75 })
 
   return (
     <Link to={path} style={{ textDecoration: 'none', display: 'block' }}>
@@ -86,7 +87,7 @@ function NavItem({ label, icon: Icon, path, exact }) {
         cursor="pointer"
       >
         <Box flexShrink={0} display="flex" alignItems="center">
-          <Icon size={15} strokeWidth={isActive ? 2.5 : 1.75} />
+          {iconNode}
         </Box>
         <Text
           fontSize="13.5px"
@@ -124,6 +125,8 @@ function NavGroup({ label, items }) {
 }
 
 export default function Sidebar() {
+  const navigate = useNavigate()
+
   return (
     <Flex
       direction="column"
@@ -280,6 +283,7 @@ export default function Sidebar() {
                   value="logout"
                   color="fg.error"
                   _hover={{ bg: 'bg.error', color: 'fg.error' }}
+                  onClick={() => navigate('/login')}
                 >
                   <LogOut size={13} />
                   Log Out
