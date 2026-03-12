@@ -159,7 +159,8 @@ const VIEW_OPTIONS = [
 function ViewToggle({ view, onChange }) {
   return (
     <Flex bg="gray.100" borderRadius="lg" p="3px" gap="2px">
-      {VIEW_OPTIONS.map(({ key, Icon }) => {
+      {VIEW_OPTIONS.map(({ key, Icon: IconComp }) => {
+        const Icon = IconComp
         const active = view === key
         return (
           <Box
