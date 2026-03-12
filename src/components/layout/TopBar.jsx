@@ -1,6 +1,6 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
-import { useMatches, useNavigate } from 'react-router-dom'
-import { Undo2, ChevronRight } from 'lucide-react'
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { useMatches, useNavigate } from "react-router-dom";
+import { Undo2, ChevronRight } from "lucide-react";
 
 /**
  * TopBar reads breadcrumbs directly from the matched route tree via
@@ -12,12 +12,18 @@ import { Undo2, ChevronRight } from 'lucide-react'
  * and the breadcrumb updates automatically.
  */
 export default function TopBar() {
-  const navigate = useNavigate()
-  const matches = useMatches()
+  const navigate = useNavigate();
+  const matches = useMatches();
 
   const breadcrumbs = matches
     .filter((match) => Boolean(match.handle?.crumb))
-    .map((match) => ({ label: match.handle.crumb, path: match.pathname }))
+    .map((match) => ({
+      label:
+        typeof match.handle.crumb === "function"
+          ? match.handle.crumb(match)
+          : match.handle.crumb,
+      path: match.pathname,
+    }));
 
   return (
     <Box
@@ -40,7 +46,7 @@ export default function TopBar() {
           display="flex"
           alignItems="center"
           color="gray.400"
-          _hover={{ color: 'gray.700' }}
+          _hover={{ color: "gray.700" }}
           transition="color 0.12s"
           cursor="pointer"
           border="none"
@@ -53,7 +59,7 @@ export default function TopBar() {
 
         {/* Crumb trail — sourced entirely from route handles */}
         {breadcrumbs.map((crumb, index) => {
-          const isLast = index === breadcrumbs.length - 1
+          const isLast = index === breadcrumbs.length - 1;
           return (
             <Flex key={crumb.path} align="center" gap="6px">
               {index > 0 && (
@@ -63,19 +69,19 @@ export default function TopBar() {
               )}
               <Text
                 fontSize="13.5px"
-                fontWeight={isLast ? '600' : '400'}
-                color={isLast ? 'gray.800' : 'gray.400'}
-                cursor={isLast ? 'default' : 'pointer'}
-                _hover={isLast ? {} : { color: 'gray.600' }}
+                fontWeight={isLast ? "600" : "400"}
+                color={isLast ? "gray.800" : "gray.400"}
+                cursor={isLast ? "default" : "pointer"}
+                _hover={isLast ? {} : { color: "gray.600" }}
                 transition="color 0.12s"
                 onClick={isLast ? undefined : () => navigate(crumb.path)}
               >
                 {crumb.label}
               </Text>
             </Flex>
-          )
+          );
         })}
       </Flex>
     </Box>
-  )
+  );
 }
