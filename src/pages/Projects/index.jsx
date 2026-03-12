@@ -7,138 +7,64 @@ import {
   Flex,
   Heading,
   Input,
+  SimpleGrid,
   Table,
   Text,
   VStack,
 } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import { Plus, Search, FolderOpen } from 'lucide-react'
+import {
+  Building2,
+  Calendar,
+  FolderOpen,
+  LayoutGrid,
+  List,
+  Plus,
+  Search,
+  User,
+} from 'lucide-react'
 
 const STATUS_CONFIG = {
-  active: { label: 'Active', colorPalette: 'green' },
-  on_hold: { label: 'On Hold', colorPalette: 'orange' },
-  completed: { label: 'Completed', colorPalette: 'blue' },
-  cancelled: { label: 'Cancelled', colorPalette: 'red' },
-  draft: { label: 'Draft', colorPalette: 'gray' },
+  active:    { label: 'Active',    colorPalette: 'green'  },
+  on_hold:   { label: 'On Hold',   colorPalette: 'yellow' },
+  completed: { label: 'Completed', colorPalette: 'blue'   },
+  cancelled: { label: 'Cancelled', colorPalette: 'red'    },
+  draft:     { label: 'Draft',     colorPalette: 'gray'   },
+}
+
+const STATUS_STRIPE = {
+  active:    '#22c55e',
+  on_hold:   '#eab308',
+  completed: '#3b82f6',
+  cancelled: '#ef4444',
+  draft:     '#d1d5db',
 }
 
 const STATUS_FILTERS = [
-  { value: 'all', label: 'All' },
-  { value: 'active', label: 'Active' },
-  { value: 'on_hold', label: 'On Hold' },
+  { value: 'all',       label: 'All'       },
+  { value: 'active',    label: 'Active'    },
+  { value: 'on_hold',   label: 'On Hold'   },
   { value: 'completed', label: 'Completed' },
   { value: 'cancelled', label: 'Cancelled' },
-  { value: 'draft', label: 'Draft' },
+  { value: 'draft',     label: 'Draft'     },
 ]
 
 const MOCK_PROJECTS = [
-  {
-    id: 1,
-    project_code: 'PRJ-2024-001',
-    project_name: 'Marina Bay Tower Construction',
-    project_status: 'active',
-    client: 'Bayview Properties Ltd',
-    project_manager: 'Sarah Chen',
-    created_at: '2024-11-15',
-    updated_at: '2025-03-08',
-  },
-  {
-    id: 2,
-    project_code: 'PRJ-2024-002',
-    project_name: 'Greenfield Office Park — Phase 2',
-    project_status: 'active',
-    client: 'Metro Development Corp',
-    project_manager: 'James Rivera',
-    created_at: '2024-12-01',
-    updated_at: '2025-03-10',
-  },
-  {
-    id: 3,
-    project_code: 'PRJ-2024-003',
-    project_name: 'Central Hospital Renovation',
-    project_status: 'on_hold',
-    client: 'National Health Authority',
-    project_manager: 'Aisha Patel',
-    created_at: '2024-10-20',
-    updated_at: '2025-02-14',
-  },
-  {
-    id: 4,
-    project_code: 'PRJ-2025-001',
-    project_name: 'Riverside Mall Interior Fit-Out',
-    project_status: 'active',
-    client: 'Sunrise Retail Group',
-    project_manager: 'David Kim',
-    created_at: '2025-01-10',
-    updated_at: '2025-03-09',
-  },
-  {
-    id: 5,
-    project_code: 'PRJ-2024-004',
-    project_name: 'Highway Extension — Section C',
-    project_status: 'completed',
-    client: 'Department of Transport',
-    project_manager: 'Sarah Chen',
-    created_at: '2024-06-15',
-    updated_at: '2025-01-30',
-  },
-  {
-    id: 6,
-    project_code: 'PRJ-2025-002',
-    project_name: 'Smart Campus Network Installation',
-    project_status: 'draft',
-    client: 'TechVision University',
-    project_manager: 'Aisha Patel',
-    created_at: '2025-02-20',
-    updated_at: '2025-02-20',
-  },
-  {
-    id: 7,
-    project_code: 'PRJ-2024-005',
-    project_name: 'Waterfront Promenade Design',
-    project_status: 'completed',
-    client: 'City Council',
-    project_manager: 'James Rivera',
-    created_at: '2024-03-10',
-    updated_at: '2024-12-15',
-  },
-  {
-    id: 8,
-    project_code: 'PRJ-2025-003',
-    project_name: 'Industrial Zone Remediation',
-    project_status: 'active',
-    client: 'Greenland Environmental',
-    project_manager: 'David Kim',
-    created_at: '2025-01-25',
-    updated_at: '2025-03-07',
-  },
-  {
-    id: 9,
-    project_code: 'PRJ-2024-006',
-    project_name: 'Heritage Building Restoration',
-    project_status: 'cancelled',
-    client: 'Heritage Trust Foundation',
-    project_manager: 'Sarah Chen',
-    created_at: '2024-08-05',
-    updated_at: '2024-11-20',
-  },
-  {
-    id: 10,
-    project_code: 'PRJ-2025-004',
-    project_name: 'Solar Farm — Northern District',
-    project_status: 'draft',
-    client: 'CleanEnergy Partners',
-    project_manager: 'James Rivera',
-    created_at: '2025-03-01',
-    updated_at: '2025-03-01',
-  },
+  { id: 1,  project_code: 'PRJ-2024-001', project_name: 'Marina Bay Tower Construction',     project_status: 'active',    client: 'Bayview Properties Ltd',     project_manager: 'Sarah Chen',   created_at: '2024-11-15', updated_at: '2025-03-08' },
+  { id: 2,  project_code: 'PRJ-2024-002', project_name: 'Greenfield Office Park — Phase 2',  project_status: 'active',    client: 'Metro Development Corp',     project_manager: 'James Rivera', created_at: '2024-12-01', updated_at: '2025-03-10' },
+  { id: 3,  project_code: 'PRJ-2024-003', project_name: 'Central Hospital Renovation',       project_status: 'on_hold',   client: 'National Health Authority',  project_manager: 'Aisha Patel',  created_at: '2024-10-20', updated_at: '2025-02-14' },
+  { id: 4,  project_code: 'PRJ-2025-001', project_name: 'Riverside Mall Interior Fit-Out',   project_status: 'active',    client: 'Sunrise Retail Group',       project_manager: 'David Kim',    created_at: '2025-01-10', updated_at: '2025-03-09' },
+  { id: 5,  project_code: 'PRJ-2024-004', project_name: 'Highway Extension — Section C',     project_status: 'completed', client: 'Department of Transport',    project_manager: 'Sarah Chen',   created_at: '2024-06-15', updated_at: '2025-01-30' },
+  { id: 6,  project_code: 'PRJ-2025-002', project_name: 'Smart Campus Network Installation', project_status: 'draft',     client: 'TechVision University',      project_manager: 'Aisha Patel',  created_at: '2025-02-20', updated_at: '2025-02-20' },
+  { id: 7,  project_code: 'PRJ-2024-005', project_name: 'Waterfront Promenade Design',       project_status: 'completed', client: 'City Council',               project_manager: 'James Rivera', created_at: '2024-03-10', updated_at: '2024-12-15' },
+  { id: 8,  project_code: 'PRJ-2025-003', project_name: 'Industrial Zone Remediation',       project_status: 'active',    client: 'Greenland Environmental',    project_manager: 'David Kim',    created_at: '2025-01-25', updated_at: '2025-03-07' },
+  { id: 9,  project_code: 'PRJ-2024-006', project_name: 'Heritage Building Restoration',     project_status: 'cancelled', client: 'Heritage Trust Foundation',  project_manager: 'Sarah Chen',   created_at: '2024-08-05', updated_at: '2024-11-20' },
+  { id: 10, project_code: 'PRJ-2025-004', project_name: 'Solar Farm — Northern District',    project_status: 'draft',     client: 'CleanEnergy Partners',       project_manager: 'James Rivera', created_at: '2025-03-01', updated_at: '2025-03-01' },
 ]
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
+    day: 'numeric', month: 'short', year: 'numeric',
   })
 }
 
@@ -169,10 +95,105 @@ function StatusBadge({ status }) {
   )
 }
 
+function ProjectCard({ project, onClick }) {
+  return (
+    <Box
+      bg="white"
+      borderWidth="1px"
+      borderColor="gray.100"
+      borderRadius="xl"
+      overflow="hidden"
+      cursor="pointer"
+      onClick={onClick}
+      transition="box-shadow 0.15s, border-color 0.15s, transform 0.15s"
+      _hover={{
+        borderColor: 'gray.200',
+        boxShadow: '0 6px 24px rgba(0,0,0,0.07)',
+        transform: 'translateY(-1px)',
+      }}
+    >
+      {/* status colour stripe */}
+      <Box h="3px" style={{ background: STATUS_STRIPE[project.project_status] ?? '#d1d5db' }} />
+
+      <Box p={5}>
+        {/* code + status */}
+        <Flex justify="space-between" align="center" mb={3}>
+          <Text fontSize="11.5px" fontFamily="mono" color="gray.400" letterSpacing="-0.01em">
+            {project.project_code}
+          </Text>
+          <StatusBadge status={project.project_status} />
+        </Flex>
+
+        {/* project name */}
+        <Text fontSize="14.5px" fontWeight="700" color="gray.800" lineHeight="1.35" mb={4}>
+          {project.project_name}
+        </Text>
+
+        {/* meta */}
+        <Box borderTopWidth="1px" borderColor="gray.100" pt={3}>
+          <VStack gap={1.5} align="stretch">
+            <Flex align="center" gap={2}>
+              <Box color="gray.400" flexShrink={0}><Building2 size={12} strokeWidth={2} /></Box>
+              <Text fontSize="12.5px" color="gray.600">{project.client}</Text>
+            </Flex>
+            <Flex align="center" gap={2}>
+              <Box color="gray.400" flexShrink={0}><User size={12} strokeWidth={2} /></Box>
+              <Text fontSize="12.5px" color="gray.500">{project.project_manager}</Text>
+            </Flex>
+            <Flex align="center" gap={2}>
+              <Box color="gray.400" flexShrink={0}><Calendar size={12} strokeWidth={2} /></Box>
+              <Text fontSize="12px" color="gray.400">{formatDate(project.created_at)}</Text>
+            </Flex>
+          </VStack>
+        </Box>
+      </Box>
+    </Box>
+  )
+}
+
+const VIEW_OPTIONS = [
+  { key: 'cards', Icon: LayoutGrid },
+  { key: 'table', Icon: List       },
+]
+
+function ViewToggle({ view, onChange }) {
+  return (
+    <Flex bg="gray.100" borderRadius="lg" p="3px" gap="2px">
+      {VIEW_OPTIONS.map(({ key, Icon }) => {
+        const active = view === key
+        return (
+          <Box
+            key={key}
+            as="button"
+            type="button"
+            onClick={() => onChange(key)}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            w="30px"
+            h="26px"
+            borderRadius="md"
+            bg={active ? 'white' : 'transparent'}
+            color={active ? 'gray.700' : 'gray.400'}
+            boxShadow={active ? '0 1px 3px rgba(0,0,0,0.10)' : 'none'}
+            transition="all 0.12s"
+            cursor="pointer"
+            border="none"
+            _hover={{ color: active ? 'gray.700' : 'gray.600' }}
+          >
+            <Icon size={14} strokeWidth={active ? 2.4 : 1.8} />
+          </Box>
+        )
+      })}
+    </Flex>
+  )
+}
+
 export default function Projects() {
   const navigate = useNavigate()
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
+  const [view, setView] = useState('cards')
 
   const statusCounts = useMemo(() => {
     const counts = { all: MOCK_PROJECTS.length }
@@ -203,52 +224,30 @@ export default function Projects() {
     return result
   }, [search, statusFilter])
 
+  const isEmpty = filteredProjects.length === 0
+
   return (
     <Box px="24px" py="20px">
       {/* ── Page header ── */}
       <Flex align="center" justify="space-between" mb="20px">
         <Flex align="center" gap="10px">
-          <Heading
-            as="h1"
-            fontSize="20px"
-            fontWeight="700"
-            color="gray.800"
-            letterSpacing="-0.01em"
-          >
+          <Heading as="h1" fontSize="20px" fontWeight="700" color="gray.800" letterSpacing="-0.01em">
             Projects
           </Heading>
-          <Badge
-            variant="subtle"
-            colorPalette="gray"
-            borderRadius="full"
-            fontSize="11.5px"
-            fontWeight="600"
-            px="8px"
-          >
+          <Badge variant="subtle" colorPalette="gray" borderRadius="full" fontSize="11.5px" fontWeight="600" px="8px">
             {MOCK_PROJECTS.length}
           </Badge>
         </Flex>
-        <Button
-          colorPalette="brand"
-          size="sm"
-          fontWeight="600"
-          fontSize="13px"
-          gap="6px"
-        >
+        <Button variant="solid" colorPalette="brand" size="sm" fontWeight="600" fontSize="13px" borderRadius="md" gap="6px">
           <Plus size={14} strokeWidth={2.5} />
           New Project
         </Button>
       </Flex>
 
-      {/* ── Filters row ── */}
-      <Flex
-        align="center"
-        justify="space-between"
-        gap="16px"
-        mb="16px"
-        flexWrap="wrap"
-      >
-        <Flex gap="4px" flexWrap="wrap">
+      {/* ── Filters + search + view toggle ── */}
+      <Flex align="center" justify="space-between" gap="12px" mb="16px" flexWrap="wrap">
+        {/* status pills */}
+        <Flex gap="4px" flexWrap="wrap" flex="1" minW={0}>
           {STATUS_FILTERS.map((f) => {
             const isActive = statusFilter === f.value
             return (
@@ -266,13 +265,7 @@ export default function Projects() {
               >
                 {f.label}
                 {statusCounts[f.value] != null && (
-                  <Text
-                    as="span"
-                    fontSize="11px"
-                    opacity={0.6}
-                    ml="4px"
-                    fontWeight="500"
-                  >
+                  <Text as="span" fontSize="11px" opacity={0.6} ml="4px" fontWeight="500">
                     {statusCounts[f.value]}
                   </Text>
                 )}
@@ -281,115 +274,37 @@ export default function Projects() {
           })}
         </Flex>
 
-        <Box position="relative" w="280px" flexShrink={0}>
-          <Box
-            position="absolute"
-            left="10px"
-            top="50%"
-            transform="translateY(-50%)"
-            color="gray.400"
-            display="flex"
-            alignItems="center"
-            pointerEvents="none"
-            zIndex={1}
-          >
-            <Search size={14} strokeWidth={2} />
+        {/* search + view toggle */}
+        <Flex align="center" gap="8px" flexShrink={0}>
+          <Box position="relative" w="240px">
+            <Box
+              position="absolute"
+              left="10px"
+              top="50%"
+              transform="translateY(-50%)"
+              color="gray.400"
+              display="flex"
+              alignItems="center"
+              pointerEvents="none"
+              zIndex={1}
+            >
+              <Search size={14} strokeWidth={2} />
+            </Box>
+            <Input
+              size="sm"
+              pl="32px"
+              placeholder="Search by name, code, client..."
+              borderRadius="md"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </Box>
-          <Input
-            size="sm"
-            pl="32px"
-            placeholder="Search by name, code, client..."
-            borderRadius="md"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </Box>
+          <ViewToggle view={view} onChange={setView} />
+        </Flex>
       </Flex>
 
-      {/* ── Table ── */}
-      {filteredProjects.length > 0 ? (
-        <Box
-          borderWidth="1px"
-          borderColor="gray.100"
-          borderRadius="lg"
-          overflow="hidden"
-        >
-          <Table.Root size="sm" interactive>
-            <Table.Header>
-              <Table.Row bg="gray.50">
-                <Table.ColumnHeader {...colHeader} w="130px">
-                  Code
-                </Table.ColumnHeader>
-                <Table.ColumnHeader {...colHeader}>
-                  Project Name
-                </Table.ColumnHeader>
-                <Table.ColumnHeader {...colHeader}>
-                  Client
-                </Table.ColumnHeader>
-                <Table.ColumnHeader {...colHeader}>
-                  Manager
-                </Table.ColumnHeader>
-                <Table.ColumnHeader {...colHeader} w="100px">
-                  Status
-                </Table.ColumnHeader>
-                <Table.ColumnHeader {...colHeader} w="110px">
-                  Created
-                </Table.ColumnHeader>
-              </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-              {filteredProjects.map((project) => (
-                <Table.Row
-                  key={project.id}
-                  cursor="pointer"
-                  onClick={() => navigate(`/projects/${project.id}`)}
-                  _hover={{ bg: 'brand.50/40' }}
-                >
-                  <Table.Cell>
-                    <Text
-                      fontSize="12.5px"
-                      fontWeight="500"
-                      color="gray.500"
-                      fontFamily="mono"
-                      letterSpacing="-0.01em"
-                    >
-                      {project.project_code}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text
-                      fontSize="13px"
-                      fontWeight="600"
-                      color="gray.800"
-                    >
-                      {project.project_name}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text fontSize="13px" color="gray.600">
-                      {project.client}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text fontSize="13px" color="gray.600">
-                      {project.project_manager}
-                    </Text>
-                  </Table.Cell>
-                  <Table.Cell>
-                    <StatusBadge status={project.project_status} />
-                  </Table.Cell>
-                  <Table.Cell>
-                    <Text fontSize="12.5px" color="gray.400">
-                      {formatDate(project.created_at)}
-                    </Text>
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
-        </Box>
-      ) : (
+      {/* ── Content ── */}
+      {isEmpty ? (
         <Flex
           direction="column"
           align="center"
@@ -405,9 +320,7 @@ export default function Projects() {
                 <FolderOpen size={32} strokeWidth={1.5} />
               </EmptyState.Indicator>
               <VStack textAlign="center" gap="1">
-                <EmptyState.Title fontSize="md" fontWeight="600">
-                  No projects found
-                </EmptyState.Title>
+                <EmptyState.Title fontSize="md" fontWeight="600">No projects found</EmptyState.Title>
                 <EmptyState.Description fontSize="sm" color="gray.500">
                   {search || statusFilter !== 'all'
                     ? 'Try adjusting your search or filters.'
@@ -415,7 +328,7 @@ export default function Projects() {
                 </EmptyState.Description>
               </VStack>
               {!search && statusFilter === 'all' && (
-                <Button colorPalette="brand" size="sm" mt="2" gap="6px">
+                <Button variant="solid" colorPalette="brand" size="sm" mt="2" borderRadius="md" gap="6px">
                   <Plus size={14} strokeWidth={2.5} />
                   New Project
                 </Button>
@@ -423,10 +336,68 @@ export default function Projects() {
             </EmptyState.Content>
           </EmptyState.Root>
         </Flex>
+      ) : view === 'cards' ? (
+        /* ── Card grid ── */
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} gap={4}>
+          {filteredProjects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              onClick={() => navigate(`/projects/${project.id}`)}
+            />
+          ))}
+        </SimpleGrid>
+      ) : (
+        /* ── Table ── */
+        <Box borderWidth="1px" borderColor="gray.100" borderRadius="lg" overflow="hidden">
+          <Table.Root size="sm" interactive>
+            <Table.Header>
+              <Table.Row bg="gray.50">
+                <Table.ColumnHeader {...colHeader} w="130px">Code</Table.ColumnHeader>
+                <Table.ColumnHeader {...colHeader}>Project Name</Table.ColumnHeader>
+                <Table.ColumnHeader {...colHeader}>Client</Table.ColumnHeader>
+                <Table.ColumnHeader {...colHeader}>Manager</Table.ColumnHeader>
+                <Table.ColumnHeader {...colHeader} w="100px">Status</Table.ColumnHeader>
+                <Table.ColumnHeader {...colHeader} w="110px">Created</Table.ColumnHeader>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {filteredProjects.map((project) => (
+                <Table.Row
+                  key={project.id}
+                  cursor="pointer"
+                  onClick={() => navigate(`/projects/${project.id}`)}
+                  _hover={{ bg: 'brand.50/40' }}
+                >
+                  <Table.Cell>
+                    <Text fontSize="12.5px" fontWeight="500" color="gray.500" fontFamily="mono" letterSpacing="-0.01em">
+                      {project.project_code}
+                    </Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text fontSize="13px" fontWeight="600" color="gray.800">{project.project_name}</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text fontSize="13px" color="gray.600">{project.client}</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text fontSize="13px" color="gray.600">{project.project_manager}</Text>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <StatusBadge status={project.project_status} />
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Text fontSize="12.5px" color="gray.400">{formatDate(project.created_at)}</Text>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </Box>
       )}
 
-      {/* ── Table footer ── */}
-      {filteredProjects.length > 0 && (
+      {/* ── Footer count ── */}
+      {!isEmpty && (
         <Flex justify="flex-end" align="center" mt="12px" px="2px">
           <Text fontSize="12px" color="gray.400">
             Showing {filteredProjects.length} of {MOCK_PROJECTS.length} projects
